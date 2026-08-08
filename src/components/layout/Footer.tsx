@@ -100,7 +100,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-[11px]">
-          <p>© 2026 Confidential Credentials. Built for Midnight Network Level 3 Submission.</p>
+          <p>© 2026 Confidential Credentials. Built by Shri Techie.</p>
           <p className="text-[10px] text-slate-500">
             Confidential Credentials is an independent dApp implementation designed for Midnight's privacy model.
           </p>
