@@ -1,99 +1,93 @@
-# Confidential Credentials 🛡️
+# Confidential Credentials
 
 [![CI/CD Pipeline](https://github.com/Shrikant1a/confidential-credentials/actions/workflows/ci.yml/badge.svg)](https://github.com/Shrikant1a/confidential-credentials/actions/workflows/ci.yml)
-[![Midnight Network](https://img.shields.io/badge/Midnight-Privacy%20DApp-8B5CF6)](https://midnight.network)
-[![Tests Passing](https://img.shields.io/badge/Tests-14%2F14%20Passing-10B981)](https://vitest.dev)
+[![Midnight Network](https://img.shields.io/badge/Midnight-Network-8B5CF6)](https://midnight.network)
+[![Tests Passing](https://img.shields.io/badge/Tests-14%20passed-10B981)](https://vitest.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-> **Prove what matters. Reveal nothing more.**  
-> *Privacy-preserving credential verification powered by Midnight Network.*
+A privacy-preserving decentralized credential verification system built on the **Midnight Network**. Allows students and professionals to prove credentials, university degrees, and performance thresholds using zero-knowledge selective disclosure without revealing raw personal data (such as legal name, date of birth, student ID, or exact scores).
 
 ---
 
-## 🌓 Overview & Level 3 Mission
+## Project Overview
 
-**Confidential Credentials** is a production-grade decentralized application (dApp) built on the **Midnight Network** privacy architecture. 
+When verifying degrees, background checks, or professional licenses, traditional workflows force individuals to expose complete transcripts and personal identifying information (PII). 
 
-In traditional digital credential systems, sharing a degree or certificate forces the holder to expose 100% of their private information (full legal name, student ID, date of birth, exact GPA scores, home address). 
-
-**Confidential Credentials** transforms this paradigm using **zero-knowledge selective disclosure**:
-- Students and professionals store their full credentials securely in **client-side private state**.
-- When applying for jobs or opportunities, holders generate cryptographic zero-knowledge proofs for **specific claims** (e.g. *“Degree is authentic”*, *“CGPA ≥ 3.5”*, *“Graduated after 2023”*, *“Issuer is accredited”*).
-- Verifiers validate the proof against Midnight smart contracts in milliseconds **without learning any sensitive personal data**.
+**Confidential Credentials** implements a zero-knowledge credential verification model:
+- **Issuance**: Accredited institutions issue cryptographic commitments `Hash(attributes || blinding_factor)` anchored to the Midnight public ledger.
+- **Client Storage**: Full private attributes remain strictly inside the user's local browser enclave.
+- **Selective Disclosure Proofs**: Holders construct ZK-SNARK proofs for specific predicates (e.g. *“Degree is valid”*, *“CGPA ≥ 3.5”*, *“Graduated ≥ 2023”*, *“Issuer is accredited”*).
+- **Verification**: Verifiers validate proofs against the Midnight Compact smart contract in under 1 second without receiving any private witness data.
 
 ---
 
-## 🔐 Midnight Privacy Model Analysis
+## Midnight Privacy Model Analysis
 
-### What an Observer CAN and CANNOT Learn
+### Public Ledger vs. Shielded Private State
 
-| Observer CAN See (Public Ledger) | Observer CANNOT See (Shielded Private Witness) |
+| Public On-Chain Ledger (Visible to Observers) | Shielded Private Witness (Client Enclave Only) |
 | :--- | :--- |
-| ✅ A verification transaction was submitted at a specific block time | 🔒 **Full Legal Name & Identity** |
-| ✅ Consented public claim metadata (e.g., *“CGPA ≥ 3.5 threshold satisfied”*) | 🔒 **Student Registration / ID Number** |
-| ✅ Verification validity result (`TRUE` / `FALSE`) | 🔒 **Exact Numerical Scores & Transcripts** (e.g., whether score was 3.51 or 4.0) |
-| ✅ Public address and accreditation status of the issuing authority | 🔒 **Date of Birth, Age & Demographic Data** |
-| ✅ Cryptographic commitment hash & smart contract gas execution | 🔒 **Blinding Salts, Private Keys & Secret Witness Data** |
+| Verification transaction timestamp & block number | Full legal name of the credential holder |
+| Consented claim predicates (e.g., `CGPA >= 7.5: true`) | Student ID & registration numbers |
+| Verification outcome (`VALID` / `INVALID`) | Exact GPA / numeric marks (e.g. whether score is 8.1 or 9.9) |
+| Accredited issuing authority public address | Date of birth, age, demographic information |
+| Credential commitment hash & revocation nullifiers | Blinding factors, private keys, and witness salts |
 
-> **Privacy Guarantee:** In Midnight, privacy depends on the information intentionally disclosed by the credential holder and the application's circuit design. With Confidential Credentials, no raw personal attributes are ever written to the public blockchain.
+### Privacy Design Principles
+1. **Witness Confidentiality**: Private credential attributes are never submitted to the RPC or indexer.
+2. **Anti-Correlation**: Each proof generation derives unique blinded proof commitments, preventing verifiers from linking multiple verifications to the same student identity.
+3. **Revocation Nullifiers**: Issuers can nullify specific commitment hashes on-chain without exposing the underlying student identity.
 
 ---
 
-## 🏛️ System Architecture
+## Architecture
 
 ```
- ┌────────────────────────────────────────────────────────┐
- │                   ISSUING AUTHORITY                    │
- │  1. Creates credential payload                        │
- │  2. Computes Commitment: Hash(Attrs || BlindingSalt)  │
- │  3. Signs Commitment with Ed25519 Authority Key       │
- └──────────────────────────┬─────────────────────────────┘
-                            │ (Anchors Commitment to Ledger)
-                            ▼
- ┌────────────────────────────────────────────────────────┐
- │              MIDNIGHT PUBLIC LEDGER                    │
- │  • Accredited Issuer Registry                          │
- │  • Credential Commitment & Nullifier Map               │
- │  • Compact Verification Circuit                        │
- └──────────────────────────┬─────────────────────────────┘
-                            ▲
-                            │ (Zero-Knowledge Proof: pi_a, pi_b, pi_c)
- ┌──────────────────────────┴─────────────────────────────┐
- │                  CREDENTIAL HOLDER                     │
- │  • Private State in Wallet / Client Enclave            │
- │  • Synthesizes ZK-SNARK for custom claims              │
- │  • Produces Shareable Verification Code / JSON Proof   │
- └──────────────────────────┬─────────────────────────────┘
-                            │ (Share Code: CC-XXXX-XXXX)
-                            ▼
- ┌────────────────────────────────────────────────────────┐
- │                   PUBLIC VERIFIER                      │
- │  • Enters Code or Uploads Proof JSON                   │
- │  • Verifies via Midnight Contract: 100% Assurance     │
- │  • Reads Audit Report: ZERO personal data exposed      │
- └────────────────────────────────────────────────────────┘
+                       [ Accredited Issuer ]
+                                 │
+                 Issues Commitment: Hash(Attrs || Salt)
+                 Signs with Ed25519 Authority Key
+                                 ▼
+                     [ Midnight Public Ledger ]
+                     • Issuer Registry Map
+                     • Commitment & Nullifier Map
+                     • Compact Verification Circuit
+                                 ▲
+                     Submits ZK Proof (pi_a, pi_b, pi_c)
+                                 │
+                      [ Credential Holder ]
+                      • Private State (Local Enclave)
+                      • Generates ZK-SNARK for custom claims
+                      • Produces verification code (e.g. CC-4921-8842)
+                                 │
+                     Shares code or proof package
+                                 ▼
+                       [ Public Verifier ]
+                      • Enters verification code or uploads JSON
+                      • Executes Midnight smart contract verification
+                      • Receives mathematical proof result (Zero Data Leak)
 ```
 
 ---
 
-## 📄 Midnight Compact Smart Contract
+## Midnight Compact Contract Specification
 
-The core smart contract is implemented in Midnight's native **Compact DSL** (`contracts/CredentialVerifier.compact`):
+The smart contract is written in Midnight's **Compact** language (`contracts/CredentialVerifier.compact`):
 
 ```compact
 export circuit verifySelectiveDisclosureProof(
     claim: PublicVerificationClaim
 ): Boolean {
-    // 1. Verify issuer accreditation on ledger
+    // 1. Verify issuer accreditation status
     if (claim.requireActiveIssuer) {
         assert(issuers.member(claim.issuerPublicKey), "Unknown issuer");
         assert(issuers.lookup(claim.issuerPublicKey).isActive, "Issuer revoked");
     }
 
-    // 2. Verify credential is not revoked
+    // 2. Ensure credential has not been nullified on-chain
     assert(!revokedCommitments.lookup(claim.credentialCommitment), "Credential revoked");
 
-    // 3. Reconstruct commitment from private witness
+    // 3. Reconstruct commitment from private witness inputs
     let computedCommitment = hash_sha256(
         witness.holderSecretKey,
         witness.fullStudentName,
@@ -104,10 +98,10 @@ export circuit verifySelectiveDisclosureProof(
     );
     assert(computedCommitment == claim.credentialCommitment, "Commitment mismatch");
 
-    // 4. Verify issuer signature over commitment
+    // 4. Verify cryptographic issuer signature over commitment
     assert(verify_ed25519_signature(claim.issuerPublicKey, computedCommitment, witness.issuerSignature));
 
-    // 5. Enforce selective disclosure range checks
+    // 5. Enforce selective disclosure threshold constraints
     assert(witness.exactCgpaTimes100 >= claim.minCgpaThresholdTimes100, "CGPA requirement failed");
     assert(witness.actualGraduationYear >= claim.minGraduationYear, "Graduation year requirement failed");
 
@@ -117,78 +111,86 @@ export circuit verifySelectiveDisclosureProof(
 
 ---
 
-## 🧪 Test Suite (100% Passing)
+## Automated Test Suites
 
-The project includes an automated **Vitest** test suite covering 4 core domains:
+The project maintains 14 automated unit and integration tests across 4 suites using Vitest:
 
 ```bash
 npm test
 ```
 
-### Test Suites Summary:
-1. **`credential.test.ts`** — Cryptographic commitment generation, deterministic hashing, tamper resistance, and private attribute state retrieval.
-2. **`proof.test.ts`** — Zero-knowledge proof synthesis, selective disclosure claim validation, mathematical constraint verification, and out-of-range claim rejection.
-3. **`verifier.test.ts`** — Midnight verifier contract audit logic, revocation nullifier enforcement, human-friendly code verification, and anti-tamper tests.
-4. **`wallet.test.ts`** — Midnight Lace wallet state management, address formatting, and cryptographic proof payload signing.
+### Test Coverage Summary:
+- **`src/test/credential.test.ts`**: Verifies SHA-256 commitment generation, deterministic hashing consistency, tamper detection on private attributes, and local state retrieval.
+- **`src/test/proof.test.ts`**: Verifies zero-knowledge selective disclosure synthesis, threshold claim validation, and rejection of out-of-range claims.
+- **`src/test/verifier.test.ts`**: Verifies contract verification logic, on-chain revocation nullifier enforcement, and tamper detection.
+- **`src/test/wallet.test.ts`**: Tests Midnight Lace wallet connector lifecycle, address formatting, and cryptographic proof payload signing.
 
 ---
 
-## 🚀 Quick Start & Development
+## Getting Started
 
 ### Prerequisites
-- Node.js v18+ or v20+
-- npm v9+
+- Node.js (v18.x or v20.x recommended)
+- npm (v9.x or later)
+- Midnight Lace browser extension (optional, devnet sandbox included)
 
-### 1. Clone & Install
+### Setup & Run
 ```bash
-git clone https://github.com/your-org/confidential-credentials.git
+# Clone the repository
+git clone https://github.com/Shrikant1a/confidential-credentials.git
 cd confidential-credentials
-npm install
-```
 
-### 2. Run Local Development Server
-```bash
+# Install dependencies
+npm install
+
+# Start local development server
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Run Automated Tests
+The dApp will be running at `http://localhost:3000`.
+
+### Running Tests & Typechecking
 ```bash
+# Run automated tests
 npm test
-```
 
-### 4. Build for Production
-```bash
+# Run strict TypeScript typechecking
+npm run typecheck
+
+# Build production bundle
 npm run build
 ```
 
 ---
 
-## 💡 Product Proposal: Confidential Credentials for Web3 & Enterprise
+## Product Proposal & Real-World Application
 
-### 1. Problem Statement
-Identity fraud in recruitment and academic verification costs organizations billions annually, while legacy background check processes leak sensitive PII (Personally Identifiable Information) to third-party databases, violating modern data privacy regulations (GDPR, CCPA, DPDP).
+### Problem
+Academic and professional credentials verification is currently broken in two ways:
+1. **Pervasive credential fraud**: Paper certificates and easily editable PDFs lead to billions in recruitment fraud annually.
+2. **Excessive personal data exposure**: Traditional background checks collect unredacted transcripts, IDs, and birthdates, creating massive data privacy liabilities under GDPR, CCPA, and DPDP.
 
-### 2. Solution
-Confidential Credentials establishes a decentralized, privacy-preserving standard where institutions issue cryptographic commitments and students generate mathematically verifiable proofs of qualification on Midnight.
+### Solution with Midnight
+Confidential Credentials decouples **validity** from **disclosure**. Institutions anchor commitments to the Midnight blockchain, allowing candidates to generate zero-knowledge mathematical proofs that satisfy hiring criteria without handing over personal transcripts.
 
-### 3. Market Applications
-- **Tech Recruitment & Background Checks**: Prove engineering qualifications and honors without revealing full transcripts or age.
-- **Regulated Professional Licensing**: Prove valid medical or legal bar status without exposing personal license numbers.
-- **Decentralized Grants & DAO Governance**: Prove academic credentials or developer track records for anonymous voting weights.
-
----
-
-## 📦 CI/CD Pipeline
-
-The repository includes a complete GitHub Actions CI/CD workflow (`.github/workflows/ci.yml`) that executes on every push and pull request:
-- ✅ Dependency verification (`npm ci`)
-- ✅ TypeScript strict typechecking (`npm run typecheck`)
-- ✅ Privacy circuit and cryptographic test suite execution (`npm test`)
-- ✅ Optimized production bundle compilation (`npm run build`)
+### Key Use Cases
+- **Tech Recruitment**: Candidates prove degree authenticity and minimum CGPA without disclosing age, background, or student registration numbers.
+- **Cross-Border Licensing**: Medical, legal, and financial certifications verified instantly across jurisdictions with cryptographic finality.
+- **Anonymous Governance & DAO Grants**: Individuals prove qualification thresholds to earn voting weights or grant funding without doxxing their identity.
 
 ---
 
-## 🛡️ License
+## CI/CD Pipeline
 
-MIT © 2026 Confidential Credentials Team. Built for the Midnight Network Level 3 Submission.
+The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that validates every push and pull request:
+1. `npm install --legacy-peer-deps` — clean dependency installation
+2. `npm run typecheck` — strict TypeScript verification (`tsc --noEmit`)
+3. `npm test` — execution of all 14 unit and integration tests
+4. `npm run build` — Vite production build compilation
+
+---
+
+## Author & License
+
+Built by **Shrikant Shinde** for the Midnight Network Level 3 Developer Challenge.  
+Licensed under the [MIT License](LICENSE).
