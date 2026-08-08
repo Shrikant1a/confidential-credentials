@@ -17,7 +17,7 @@ import {
   Copy,
   Hash,
 } from 'lucide-react';
-import { copyToClipboard, formatDate } from '../../src/utils/formatters';
+import { copyToClipboard, formatDate } from '../utils/formatters';
 import { useToast } from '../context/ToastContext';
 
 export const CredentialDetailPage: React.FC = () => {

@@ -8,7 +8,7 @@ import {
   PlusCircle,
   ShieldCheck,
 } from 'lucide-react';
-import { truncateAddress } from '../../src/utils/formatters';
+import { truncateAddress } from '../utils/formatters';
 import { WalletGuard } from '../components/wallet/WalletGuard';
 
 export const IssuerPage: React.FC = () => {
