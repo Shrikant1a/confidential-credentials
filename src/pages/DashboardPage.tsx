@@ -19,6 +19,8 @@ import {
   RefreshCcw,
 } from 'lucide-react';
 
+import { WalletGuard } from '../components/wallet/WalletGuard';
+
 export const DashboardPage: React.FC = () => {
   const { credentials, proofs, isLoading, resetToSampleData } = useCredentials();
 
@@ -30,7 +32,8 @@ export const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
+    <WalletGuard featureName="Dashboard & Private Credentials" description="Connect your Midnight wallet to view your active credentials, generate ZK proofs, and audit privacy state.">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
@@ -227,6 +230,7 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </WalletGuard>
   );
 };

@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { proofService } from '../services/proofService';
 import { useToast } from '../context/ToastContext';
 
+import { WalletGuard } from '../components/wallet/WalletGuard';
+
 export const ProofsPage: React.FC = () => {
   const { proofs, refresh } = useCredentials();
   const { success, error } = useToast();
@@ -35,7 +37,8 @@ export const ProofsPage: React.FC = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
+    <WalletGuard featureName="Generated Proofs" description="Connect your Midnight wallet to manage your zero-knowledge proofs and export shareable verification codes.">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
@@ -109,5 +112,6 @@ export const ProofsPage: React.FC = () => {
         </div>
       )}
     </div>
+    </WalletGuard>
   );
 };

@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Shrikant1a/confidential-credentials"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-slate-200 transition-colors inline-flex items-center gap-1"

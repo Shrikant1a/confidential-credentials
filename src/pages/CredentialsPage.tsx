@@ -9,6 +9,8 @@ import { Skeleton } from '../components/ui/Skeleton';
 import { Search, Filter, Lock, PlusCircle, RefreshCcw, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { WalletGuard } from '../components/wallet/WalletGuard';
+
 export const CredentialsPage: React.FC = () => {
   const { credentials, isLoading, resetToSampleData } = useCredentials();
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,7 +27,8 @@ export const CredentialsPage: React.FC = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
+    <WalletGuard featureName="Credentials Repository" description="Connect your Midnight wallet to view your encrypted credentials and generate private proof claims.">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
@@ -129,6 +132,7 @@ export const CredentialsPage: React.FC = () => {
           ))}
         </div>
       )}
-    </div>
+      </div>
+    </WalletGuard>
   );
 };

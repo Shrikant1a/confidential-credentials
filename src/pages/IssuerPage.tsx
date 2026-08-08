@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import { truncateAddress, formatDate } from '../../src/utils/formatters';
 
+import { WalletGuard } from '../components/wallet/WalletGuard';
+
 export const IssuerPage: React.FC = () => {
   const { credentials, issuers, revokeCredential } = useCredentials();
   const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
@@ -23,7 +25,8 @@ export const IssuerPage: React.FC = () => {
   const activeIssuer = issuers[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
+    <WalletGuard featureName="Issuer Authority Portal" description="Connect your accredited Midnight wallet to issue cryptographically signed credentials and manage on-chain revocation nullifiers.">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
@@ -172,6 +175,7 @@ export const IssuerPage: React.FC = () => {
         isOpen={isIssueModalOpen}
         onClose={() => setIsIssueModalOpen(false)}
       />
-    </div>
+      </div>
+    </WalletGuard>
   );
 };
