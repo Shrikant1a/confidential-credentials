@@ -5,7 +5,7 @@ import { PrivateAttributes } from '../types';
 
 describe('1. Credential Private Commitment & Integrity Tests', () => {
   const mockPrivateData: PrivateAttributes = {
-    fullName: 'Shrikant Shinde',
+    fullName: 'Shrikant Aher',
     studentId: 'SPPU-CS-2024-8842',
     dateOfBirth: '2001-04-14',
     exactCgpa: 8.92,

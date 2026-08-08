@@ -192,5 +192,5 @@ The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) t
 
 ## Author & License
 
-Built by **Shrikant Shinde** for the Midnight Network Level 3 Developer Challenge.  
+Built by **Shrikant Aher** for the Midnight Network Level 3 Developer Challenge.  
 Licensed under the [MIT License](LICENSE).

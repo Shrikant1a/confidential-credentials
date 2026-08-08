@@ -45,7 +45,7 @@ export const DisclosureComparison: React.FC = () => {
           <div className="space-y-2 font-mono text-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded-lg bg-midnight-950 border border-rose-900/30 gap-1">
               <span className="text-slate-400">Full Legal Name:</span>
-              <span className="text-rose-300 font-semibold">Shrikant Shinde (Exposed)</span>
+              <span className="text-rose-300 font-semibold">Shrikant Aher (Exposed)</span>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded-lg bg-midnight-950 border border-rose-900/30 gap-1">
               <span className="text-slate-400">Date of Birth:</span>

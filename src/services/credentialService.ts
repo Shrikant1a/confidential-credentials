@@ -50,7 +50,7 @@ export const INITIAL_ISSUERS: IssuerInfo[] = [
 const INITIAL_CREDENTIALS: Credential[] = [
   (() => {
     const privateData = {
-      fullName: 'Shrikant Shinde',
+      fullName: 'Shrikant Aher',
       studentId: 'SPPU-CS-2024-8842',
       dateOfBirth: '2001-04-14',
       exactCgpa: 8.92,
@@ -85,7 +85,7 @@ const INITIAL_CREDENTIALS: Credential[] = [
   })(),
   (() => {
     const privateData = {
-      fullName: 'Shrikant Shinde',
+      fullName: 'Shrikant Aher',
       studentId: 'MND-DEV-PRO-4019',
       dateOfBirth: '2001-04-14',
       exactCgpa: 9.8,
@@ -119,7 +119,7 @@ const INITIAL_CREDENTIALS: Credential[] = [
   })(),
   (() => {
     const privateData = {
-      fullName: 'Shrikant Shinde',
+      fullName: 'Shrikant Aher',
       studentId: 'STAN-CYBER-9912',
       dateOfBirth: '2001-04-14',
       exactCgpa: 3.94,
