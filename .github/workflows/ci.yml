@@ -21,7 +21,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Strict TypeScript Typecheck
         run: npm run typecheck
