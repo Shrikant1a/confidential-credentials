@@ -58,97 +58,97 @@ export const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 4 Statistics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Stat 1 */}
-        <Card variant="elevated" className="p-5 border-slate-800 space-y-3">
+        <Card variant="elevated" className="p-3.5 sm:p-5 border-slate-800 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Credentials
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Active Credentials
             </span>
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
-              <Lock className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+              <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
           <div>
-            <div className="text-3xl font-black text-slate-100 font-mono">
+            <div className="text-2xl sm:text-3xl font-black text-slate-100 font-mono">
               {isLoading ? <Skeleton className="h-8 w-12" /> : credentials.length}
             </div>
-            <p className="text-xs text-slate-400 mt-1">Active private credentials</p>
+            <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">In local private state</p>
           </div>
         </Card>
 
         {/* Stat 2 */}
-        <Card variant="elevated" className="p-5 border-slate-800 space-y-3">
+        <Card variant="elevated" className="p-3.5 sm:p-5 border-slate-800 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">
               Proofs Generated
             </span>
-            <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-brand-purple flex items-center justify-center">
-              <FileCheck className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/10 text-brand-purple flex items-center justify-center">
+              <FileCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
           <div>
-            <div className="text-3xl font-black text-slate-100 font-mono">
+            <div className="text-2xl sm:text-3xl font-black text-slate-100 font-mono">
               {isLoading ? <Skeleton className="h-8 w-12" /> : proofs.length || 12}
             </div>
-            <p className="text-xs text-slate-400 mt-1">Total selective proofs</p>
+            <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">Total selective proofs</p>
           </div>
         </Card>
 
         {/* Stat 3 */}
-        <Card variant="elevated" className="p-5 border-slate-800 space-y-3">
+        <Card variant="elevated" className="p-3.5 sm:p-5 border-slate-800 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">
               Verifications
             </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
           <div>
-            <div className="text-3xl font-black text-slate-100 font-mono">
+            <div className="text-2xl sm:text-3xl font-black text-slate-100 font-mono">
               {isLoading ? <Skeleton className="h-8 w-12" /> : 8}
             </div>
-            <p className="text-xs text-slate-400 mt-1">Successful ledger audits</p>
+            <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">Successful audits</p>
           </div>
         </Card>
 
         {/* Stat 4 */}
-        <Card variant="elevated" className="p-5 border-slate-800 space-y-3">
+        <Card variant="elevated" className="p-3.5 sm:p-5 border-slate-800 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">
               Privacy Status
             </span>
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-emerald-400 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="text-xl sm:text-2xl font-bold text-emerald-400 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               Protected
             </div>
-            <p className="text-xs text-slate-400 mt-1">Zero raw data leaked</p>
+            <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">Zero raw data leaked</p>
           </div>
         </Card>
       </div>
 
       {/* Quick Action Bar */}
-      <div className="p-4 rounded-2xl bg-midnight-900 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3 text-xs text-slate-300">
-          <Sparkles className="w-4 h-4 text-brand-purple" />
-          <span>Need to prove your degree without exposing your personal information?</span>
+      <div className="p-3.5 sm:p-4 rounded-2xl bg-midnight-900 border border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 text-xs text-slate-300">
+          <Sparkles className="w-4 h-4 text-brand-purple shrink-0" />
+          <span>Need to prove your degree without exposing your personal info?</span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link to="/verify">
-            <Button variant="secondary" size="sm">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link to="/verify" className="flex-1 sm:flex-initial">
+            <Button variant="secondary" size="sm" className="w-full sm:w-auto">
               Public Verifier
             </Button>
           </Link>
-          <Link to="/issuer">
-            <Button variant="outline" size="sm" leftIcon={<Building className="w-3.5 h-3.5" />}>
+          <Link to="/issuer" className="flex-1 sm:flex-initial">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto" leftIcon={<Building className="w-3.5 h-3.5" />}>
               Issuer Portal
             </Button>
           </Link>

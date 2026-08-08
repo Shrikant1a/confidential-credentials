@@ -8,18 +8,18 @@ export interface ProofStepperProps {
 
 export const ProofStepper: React.FC<ProofStepperProps> = ({
   currentStep,
-  steps = ['Credential Selected', 'Claims Configured', 'Generating Proof', 'Proof Generated'],
+  steps = ['Credential', 'Claims', 'Generating', 'Complete'],
 }) => {
   return (
-    <div className="w-full py-4">
-      <div className="flex items-center justify-between relative">
+    <div className="w-full py-3 sm:py-4">
+      <div className="flex items-center justify-between relative px-2">
         {/* Background track line */}
-        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-800 -translate-y-1/2 z-0" />
+        <div className="absolute top-4 left-6 right-6 h-0.5 bg-slate-800 -translate-y-1/2 z-0" />
         
         {/* Progress track line */}
         <div
-          className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-brand-purple -translate-y-1/2 z-0 transition-all duration-500"
-          style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+          className="absolute top-4 left-6 h-0.5 bg-gradient-to-r from-blue-500 to-brand-purple -translate-y-1/2 z-0 transition-all duration-500"
+          style={{ width: `calc(${((currentStep - 1) / (steps.length - 1)) * 100}% - 12px)` }}
         />
 
         {steps.map((label, idx) => {
@@ -30,7 +30,7 @@ export const ProofStepper: React.FC<ProofStepperProps> = ({
           return (
             <div key={label} className="relative z-10 flex flex-col items-center">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 ${
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[11px] sm:text-xs font-semibold transition-all duration-300 ${
                   isCompleted
                     ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-900/30 ring-4 ring-midnight-950'
                     : isCurrent
@@ -39,15 +39,15 @@ export const ProofStepper: React.FC<ProofStepperProps> = ({
                 }`}
               >
                 {isCompleted ? (
-                  <Check className="w-4 h-4" />
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : isCurrent && stepNum === 3 ? (
-                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin text-white" />
                 ) : (
                   stepNum
                 )}
               </div>
               <span
-                className={`text-[11px] font-medium mt-2 text-center max-w-[80px] sm:max-w-none transition-colors ${
+                className={`text-[9px] sm:text-[11px] font-medium mt-1.5 text-center transition-colors max-w-[65px] sm:max-w-none leading-tight ${
                   isCurrent
                     ? 'text-slate-100 font-semibold'
                     : isCompleted

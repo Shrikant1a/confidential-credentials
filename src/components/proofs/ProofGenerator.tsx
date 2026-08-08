@@ -6,14 +6,11 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import {
-  ShieldCheck,
   Lock,
   Sparkles,
   CheckCircle2,
   Copy,
   Download,
-  Share2,
-  FileCode,
   ArrowRight,
   RefreshCw,
 } from 'lucide-react';
@@ -35,8 +32,7 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
   const { generateProofForCredential } = useCredentials();
   const { success } = useToast();
 
-  const [step, setStep] = useState<number>(2); // Start at claim selection (step 2)
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [step, setStep] = useState<number>(2);
   const [generatedProof, setGeneratedProof] = useState<ZeroKnowledgeProof | null>(null);
 
   // Claim configurations
@@ -51,7 +47,6 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
 
   const handleStartGeneration = async () => {
     setStep(3);
-    setIsGenerating(true);
 
     const claims: ProofClaimSelection = {
       isDegreeValid,
@@ -62,7 +57,6 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
     };
 
     try {
-      // Simulate zero-knowledge constraint synthesis
       await new Promise((r) => setTimeout(r, 1400));
       const proof = await generateProofForCredential(credential, claims);
       setGeneratedProof(proof);
@@ -70,8 +64,6 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
       if (onSuccess) onSuccess(proof);
     } catch (err) {
       setStep(2);
-    } finally {
-      setIsGenerating(false);
     }
   };
 
@@ -97,83 +89,83 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <ProofStepper currentStep={step} />
 
       {/* Step 2: Configure Claims */}
       {step === 2 && (
-        <Card variant="elevated" className="p-6 border-slate-800 space-y-6">
-          <div className="border-b border-slate-800 pb-4">
+        <Card variant="elevated" className="p-4 sm:p-6 border-slate-800 space-y-5 sm:space-y-6">
+          <div className="border-b border-slate-800 pb-3 sm:pb-4">
             <Badge variant="purple" size="sm" className="mb-2">
               Selective Disclosure Configuration
             </Badge>
-            <h3 className="text-lg font-bold text-slate-100">
+            <h3 className="text-base sm:text-lg font-bold text-slate-100">
               Select what you want to prove
             </h3>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
               Choose the exact claims to prove cryptographically. Your personal identity, full name, student ID, and exact score will remain completely undisclosed.
             </p>
           </div>
 
           {/* Claims Checkboxes */}
-          <div className="space-y-3.5">
+          <div className="space-y-3">
             {/* Claim 1 */}
-            <label className="flex items-start gap-3.5 p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer">
+            <label className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer">
               <input
                 type="checkbox"
                 checked={isDegreeValid}
                 onChange={(e) => setIsDegreeValid(e.target.checked)}
-                className="mt-1 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple"
+                className="mt-0.5 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple shrink-0"
               />
               <div className="text-xs">
                 <span className="font-semibold text-slate-100 block">
                   Degree Authenticity & Existence
                 </span>
-                <p className="text-slate-400 mt-0.5">
+                <p className="text-slate-400 mt-0.5 leading-relaxed">
                   Proves that you hold a valid, non-revoked degree without disclosing student registration numbers.
                 </p>
               </div>
             </label>
 
             {/* Claim 2 */}
-            <label className="flex items-start gap-3.5 p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer">
+            <label className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer">
               <input
                 type="checkbox"
                 checked={isIssuerAuthorized}
                 onChange={(e) => setIsIssuerAuthorized(e.target.checked)}
-                className="mt-1 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple"
+                className="mt-0.5 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple shrink-0"
               />
               <div className="text-xs">
                 <span className="font-semibold text-slate-100 block">
                   Accredited Issuer Verification
                 </span>
-                <p className="text-slate-400 mt-0.5">
+                <p className="text-slate-400 mt-0.5 leading-relaxed">
                   Proves that the credential was signed by an officially registered institution ({credential.publicData.issuerName}).
                 </p>
               </div>
             </label>
 
             {/* Claim 3: CGPA Threshold */}
-            <div className="p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 space-y-3">
-              <label className="flex items-start gap-3.5 cursor-pointer">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 space-y-2.5">
+              <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={enableCgpaThreshold}
                   onChange={(e) => setEnableCgpaThreshold(e.target.checked)}
-                  className="mt-1 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple"
+                  className="mt-0.5 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple shrink-0"
                 />
                 <div className="text-xs">
                   <span className="font-semibold text-slate-100 block">
                     Performance Threshold Claim
                   </span>
-                  <p className="text-slate-400 mt-0.5">
+                  <p className="text-slate-400 mt-0.5 leading-relaxed">
                     Proves that your CGPA meets or exceeds a required threshold without revealing your exact CGPA score.
                   </p>
                 </div>
               </label>
 
               {enableCgpaThreshold && (
-                <div className="ml-7 pt-2 border-t border-slate-850 flex items-center gap-3">
+                <div className="pl-6 sm:pl-7 pt-2 border-t border-slate-850 flex flex-wrap items-center gap-2 sm:gap-3">
                   <span className="text-xs text-slate-300 font-medium whitespace-nowrap">
                     Prove CGPA is ≥
                   </span>
@@ -184,38 +176,38 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
                     max={credential.privateData.cgpaScale}
                     value={cgpaThreshold}
                     onChange={(e) => setCgpaThreshold(parseFloat(e.target.value) || 0)}
-                    className="w-24 px-3 py-1.5 rounded-lg bg-midnight-900 border border-slate-700 text-slate-100 text-xs font-mono focus:border-brand-purple focus:outline-none"
+                    className="w-20 sm:w-24 px-2.5 py-1.5 rounded-lg bg-midnight-900 border border-slate-700 text-slate-100 text-xs font-mono focus:border-brand-purple focus:outline-none"
                   />
-                  <span className="text-[11px] text-slate-500">
-                    (Scale: max {credential.privateData.cgpaScale})
+                  <span className="text-[10px] sm:text-[11px] text-slate-500">
+                    (Max {credential.privateData.cgpaScale})
                   </span>
                 </div>
               )}
             </div>
 
             {/* Claim 4: Graduation Year */}
-            <div className="p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 space-y-3">
-              <label className="flex items-start gap-3.5 cursor-pointer">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-midnight-950/80 border border-slate-800 space-y-2.5">
+              <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={enableGradYearThreshold}
                   onChange={(e) => setEnableGradYearThreshold(e.target.checked)}
-                  className="mt-1 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple"
+                  className="mt-0.5 rounded border-slate-700 bg-midnight-900 text-brand-purple focus:ring-brand-purple shrink-0"
                 />
                 <div className="text-xs">
                   <span className="font-semibold text-slate-100 block">
                     Recency / Graduation Year Claim
                   </span>
-                  <p className="text-slate-400 mt-0.5">
+                  <p className="text-slate-400 mt-0.5 leading-relaxed">
                     Proves that you completed your degree on or after a specific year.
                   </p>
                 </div>
               </label>
 
               {enableGradYearThreshold && (
-                <div className="ml-7 pt-2 border-t border-slate-850 flex items-center gap-3">
+                <div className="pl-6 sm:pl-7 pt-2 border-t border-slate-850 flex flex-wrap items-center gap-2 sm:gap-3">
                   <span className="text-xs text-slate-300 font-medium whitespace-nowrap">
-                    Prove Graduated on or after:
+                    Graduated on or after:
                   </span>
                   <input
                     type="number"
@@ -223,7 +215,7 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
                     max="2030"
                     value={gradYearThreshold}
                     onChange={(e) => setGradYearThreshold(parseInt(e.target.value) || 2020)}
-                    className="w-28 px-3 py-1.5 rounded-lg bg-midnight-900 border border-slate-700 text-slate-100 text-xs font-mono focus:border-brand-purple focus:outline-none"
+                    className="w-24 sm:w-28 px-2.5 py-1.5 rounded-lg bg-midnight-900 border border-slate-700 text-slate-100 text-xs font-mono focus:border-brand-purple focus:outline-none"
                   />
                 </div>
               )}
@@ -231,23 +223,24 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
           </div>
 
           {/* Privacy Guarantee Pill */}
-          <div className="p-3.5 rounded-xl bg-purple-950/20 border border-brand-purple/20 flex items-center gap-3 text-xs text-purple-200">
-            <Lock className="w-4 h-4 text-brand-purple shrink-0" />
-            <span>
-              <strong>Zero-Knowledge Assurance:</strong> The verifier will receive a cryptographic proof verifying your claims mathematically without learning your full name, student ID, or exact scores.
+          <div className="p-3 rounded-xl bg-purple-950/20 border border-brand-purple/20 flex items-start gap-2.5 text-xs text-purple-200">
+            <Lock className="w-4 h-4 text-brand-purple shrink-0 mt-0.5" />
+            <span className="leading-relaxed">
+              <strong>Zero-Knowledge Assurance:</strong> Verifiers will receive cryptographic certainty without learning your real name or exact scores.
             </span>
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 pt-2">
             {onCancel && (
-              <Button variant="ghost" size="md" onClick={onCancel}>
+              <Button variant="ghost" size="md" className="w-full sm:w-auto order-2 sm:order-1" onClick={onCancel}>
                 Cancel
               </Button>
             )}
             <Button
               variant="primary"
               size="md"
+              className="w-full sm:w-auto order-1 sm:order-2"
               onClick={handleStartGeneration}
               leftIcon={<Sparkles className="w-4 h-4" />}
             >
@@ -259,16 +252,16 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
 
       {/* Step 3: Generation in progress */}
       {step === 3 && (
-        <Card variant="elevated" className="p-12 border-slate-800 text-center space-y-6">
-          <div className="relative w-20 h-20 mx-auto">
+        <Card variant="elevated" className="p-8 sm:p-12 border-slate-800 text-center space-y-5 sm:space-y-6">
+          <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto">
             <div className="absolute inset-0 rounded-full bg-brand-purple/20 animate-ping" />
-            <div className="relative w-20 h-20 rounded-full bg-midnight-850 border border-brand-purple/50 flex items-center justify-center text-brand-purple shadow-xl shadow-purple-900/30">
-              <RefreshCw className="w-8 h-8 animate-spin text-brand-purple" />
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-midnight-850 border border-brand-purple/50 flex items-center justify-center text-brand-purple shadow-xl shadow-purple-900/30">
+              <RefreshCw className="w-7 h-7 sm:w-8 sm:h-8 animate-spin text-brand-purple" />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h3 className="text-lg font-bold text-slate-100">
+          <div className="space-y-1.5 sm:space-y-2">
+            <h3 className="text-base sm:text-lg font-bold text-slate-100">
               Generating privacy-preserving proof...
             </h3>
             <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
@@ -276,7 +269,7 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-midnight-950 border border-slate-800 text-[11px] font-mono text-slate-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-midnight-950 border border-slate-800 text-[10px] sm:text-[11px] font-mono text-slate-400">
             <span className="w-2 h-2 rounded-full bg-brand-purple animate-pulse" />
             Circuit: midnight-selective-disclosure-v2
           </div>
@@ -285,46 +278,47 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
 
       {/* Step 4: Proof Generated Successfully */}
       {step === 4 && generatedProof && (
-        <Card variant="elevated" className="p-6 border-slate-800 space-y-6">
-          <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 flex items-start gap-3.5">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-              <CheckCircle2 className="w-5 h-5" />
+        <Card variant="elevated" className="p-4 sm:p-6 border-slate-800 space-y-5 sm:space-y-6">
+          <div className="p-3.5 sm:p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 flex items-start gap-3">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-emerald-300">
+              <h3 className="text-xs sm:text-sm font-bold text-emerald-300">
                 Proof Generated Successfully
               </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
                 Your claim can now be verified by employers or institutions without revealing your private credential data.
               </p>
             </div>
           </div>
 
           {/* Verification Code Box */}
-          <div className="p-4 rounded-xl bg-midnight-950 border border-slate-800 space-y-2">
+          <div className="p-3.5 sm:p-4 rounded-xl bg-midnight-950 border border-slate-800 space-y-2">
             <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">
               Shareable Verification Code
             </span>
-            <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-xl font-bold tracking-wider text-slate-100 bg-midnight-900 px-3 py-1.5 rounded-lg border border-slate-700/80">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+              <span className="font-mono text-base sm:text-xl font-bold tracking-wider text-slate-100 bg-midnight-900 px-3 py-2 rounded-lg border border-slate-700/80 text-center sm:text-left">
                 {generatedProof.verificationCode}
               </span>
               <Button
                 variant="secondary"
                 size="sm"
+                className="w-full sm:w-auto"
                 onClick={handleCopyCode}
                 leftIcon={<Copy className="w-3.5 h-3.5" />}
               >
                 Copy Code
               </Button>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-400 leading-relaxed">
               Verifiers can enter this code at <code className="text-slate-300">/verify</code> to check authenticity instantly.
             </p>
           </div>
 
           {/* Proof Summary Info */}
-          <div className="grid grid-cols-2 gap-3 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 text-xs">
             <div className="p-3 rounded-xl bg-midnight-950 border border-slate-800">
               <span className="text-slate-500 text-[10px] uppercase font-mono block">Proof ID</span>
               <span className="text-slate-200 font-mono font-medium truncate block mt-0.5">
@@ -348,33 +342,35 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({
               {generatedProof.publicInputs.verifiedClaims.map((claim, i) => (
                 <div key={i} className="flex items-center gap-2 text-xs text-slate-300">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>{claim}</span>
+                  <span className="leading-tight">{claim}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 pt-3 border-t border-slate-800">
             <Button
               variant="outline"
               size="sm"
+              className="w-full sm:w-auto"
               onClick={handleDownloadJson}
               leftIcon={<Download className="w-3.5 h-3.5" />}
             >
               Download Proof JSON
             </Button>
 
-            <div className="flex items-center gap-2">
-              <Link to="/proofs">
-                <Button variant="secondary" size="sm">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+              <Link to="/proofs" className="w-full sm:w-auto">
+                <Button variant="secondary" size="sm" className="w-full">
                   View All Proofs
                 </Button>
               </Link>
-              <Link to={`/verify?code=${generatedProof.verificationCode}`}>
+              <Link to={`/verify?code=${generatedProof.verificationCode}`} className="w-full sm:w-auto">
                 <Button
                   variant="primary"
                   size="sm"
+                  className="w-full"
                   leftIcon={<ArrowRight className="w-3.5 h-3.5" />}
                 >
                   Test Verification

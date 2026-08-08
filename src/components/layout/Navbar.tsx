@@ -10,7 +10,6 @@ import {
   Building2,
   Menu,
   X,
-  Sparkles,
   HelpCircle,
 } from 'lucide-react';
 
@@ -35,24 +34,24 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-midnight-950/80 backdrop-blur-xl transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-midnight-950/85 backdrop-blur-xl transition-all">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-midnight-800 border border-brand-purple/40 flex items-center justify-center shadow-lg shadow-purple-900/20 group-hover:border-brand-purple transition-all duration-300">
-              <Shield className="w-5 h-5 text-brand-purple group-hover:scale-110 transition-transform" />
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-midnight-800 border border-brand-purple/40 flex items-center justify-center shadow-lg shadow-purple-900/20 group-hover:border-brand-purple transition-all duration-300">
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-brand-purple group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold text-base tracking-tight text-white">
+              <div className="flex items-center gap-1">
+                <span className="font-bold text-sm sm:text-base tracking-tight text-white">
                   Confidential
                 </span>
-                <span className="font-bold text-base tracking-tight text-brand-purple">
+                <span className="font-bold text-sm sm:text-base tracking-tight text-brand-purple">
                   Credentials
                 </span>
               </div>
-              <span className="text-[9px] uppercase tracking-wider text-slate-400 font-mono block -mt-0.5">
+              <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-slate-400 font-mono block -mt-0.5">
                 Powered by Midnight
               </span>
             </div>
@@ -81,20 +80,20 @@ export const Navbar: React.FC = () => {
             })}
           </div>
 
-          {/* Right Wallet Action */}
+          {/* Desktop Wallet Action */}
           <div className="hidden sm:flex items-center gap-3">
             <WalletButton />
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile hamburger menu & quick wallet button */}
           <div className="flex items-center gap-2 lg:hidden">
-            <div className="sm:hidden">
+            <div className="sm:hidden max-w-[140px] truncate">
               <WalletButton />
             </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 focus:outline-none"
-              aria-label="Toggle Menu"
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 border border-slate-800 transition-colors focus:outline-none"
+              aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -104,25 +103,34 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile dropdown menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-800 bg-midnight-950/95 backdrop-blur-2xl px-4 pt-2 pb-6 space-y-1.5 animate-in slide-in-from-top duration-200">
-          {navLinks.map((item) => {
-            const active = isActive(item.path);
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  active
-                    ? 'bg-midnight-800 text-white border border-slate-700'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <item.icon className={`w-4 h-4 ${active ? 'text-brand-purple' : 'text-slate-400'}`} />
-                {item.name}
-              </Link>
-            );
-          })}
+        <div className="lg:hidden border-b border-slate-800 bg-midnight-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top duration-200">
+          <div className="grid grid-cols-1 gap-1.5">
+            {navLinks.map((item) => {
+              const active = isActive(item.path);
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                    active
+                      ? 'bg-midnight-800 text-white border border-slate-700'
+                      : item.highlight
+                      ? 'bg-blue-950/20 text-blue-300 border border-blue-900/30'
+                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    <item.icon className={`w-4 h-4 ${active ? 'text-brand-purple' : 'text-slate-400'}`} />
+                    {item.name}
+                  </span>
+                  {active && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-purple" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
     </nav>
