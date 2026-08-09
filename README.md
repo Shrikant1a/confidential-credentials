@@ -1,11 +1,20 @@
 # Confidential Credentials
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-credvaultt.netlify.app-00C7B7?style=flat&logo=netlify)](https://credvaultt.netlify.app/)
 [![CI/CD Pipeline](https://github.com/Shrikant1a/confidential-credentials/actions/workflows/ci.yml/badge.svg)](https://github.com/Shrikant1a/confidential-credentials/actions/workflows/ci.yml)
 [![Midnight Network](https://img.shields.io/badge/Midnight-Network-8B5CF6)](https://midnight.network)
 [![Tests Passing](https://img.shields.io/badge/Tests-14%20passed-10B981)](https://vitest.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A privacy-preserving decentralized credential verification system built on the **Midnight Network**. Allows students and professionals to prove credentials, university degrees, and performance thresholds using zero-knowledge selective disclosure without revealing raw personal data (such as legal name, date of birth, student ID, or exact scores).
+
+---
+
+## 🌐 Live Application & Demo
+
+- 🚀 **Live Demo URL**: [https://credvaultt.netlify.app/](https://credvaultt.netlify.app/)
+- 🎬 **Demo Video (Full Walkthrough)**: [Watch Demo Video (`Video & ScreenShots/Demo Video.mp4`)](./Video%20%26%20ScreenShots/Demo%20Video.mp4)
+- 📸 **Application & Test Screenshots**: Available in the [`Video & ScreenShots`](./Video%20%26%20ScreenShots) directory.
 
 ---
 
@@ -18,13 +27,6 @@ When verifying degrees, background checks, or professional licenses, traditional
 - **Client Storage**: Full private attributes remain strictly inside the user's local browser enclave.
 - **Selective Disclosure Proofs**: Holders construct ZK-SNARK proofs for specific predicates (e.g. *“Degree is valid”*, *“CGPA ≥ 3.5”*, *“Graduated ≥ 2023”*, *“Issuer is accredited”*).
 - **Verification**: Verifiers validate proofs against the Midnight Compact smart contract in under 1 second without receiving any private witness data.
-
----
-
-## 🎬 Demo Video & Screenshots
-
-- **Demo Video (Full Walkthrough)**: [Watch Demo Video (`Video & ScreenShots/Demo Video.mp4`)](./Video%20%26%20ScreenShots/Demo%20Video.mp4)
-- **Application & Test Screenshots**: Available in the [`Video & ScreenShots`](./Video%20%26%20ScreenShots) directory.
 
 
 ---
