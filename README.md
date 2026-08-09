@@ -16,6 +16,10 @@ A privacy-preserving decentralized credential verification system built on the *
 - 🎬 **Demo Video (Full Walkthrough)**: [Watch Demo Video (`Video & ScreenShots/Demo Video.mp4`)](./Video%20%26%20ScreenShots/Demo%20Video.mp4)
 - 📸 **Application & Test Screenshots**: Available in the [`Video & ScreenShots`](./Video%20%26%20ScreenShots) directory.
 
+<div align="center">
+  <img src="./Video%20%26%20ScreenShots/Screenshot%202026-08-09%20114203.png" alt="Confidential Credentials UI & Privacy Model Preview" width="100%" />
+</div>
+
 ---
 
 ## Project Overview
