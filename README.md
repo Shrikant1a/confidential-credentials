@@ -21,6 +21,14 @@ When verifying degrees, background checks, or professional licenses, traditional
 
 ---
 
+## 🎬 Demo Video & Screenshots
+
+- **Demo Video (Full Walkthrough)**: [Watch Demo Video (`Video & ScreenShots/Demo Video.mp4`)](./Video%20%26%20ScreenShots/Demo%20Video.mp4)
+- **Application & Test Screenshots**: Available in the [`Video & ScreenShots`](./Video%20%26%20ScreenShots) directory.
+
+
+---
+
 ## Midnight Privacy Model Analysis
 
 ### Public Ledger vs. Shielded Private State
