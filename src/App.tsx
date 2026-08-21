@@ -14,6 +14,7 @@ import { VerifyPage } from './pages/VerifyPage';
 import { IssuerPage } from './pages/IssuerPage';
 import { PrivacyCenterPage } from './pages/PrivacyCenterPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
+import { DeployPage } from './pages/DeployPage';
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
                 <Route path="/issuer" element={<IssuerPage />} />
                 <Route path="/privacy" element={<PrivacyCenterPage />} />
                 <Route path="/how-it-works" element={<HowItWorksPage />} />
+                <Route path="/deploy" element={<DeployPage />} />
               </Routes>
             </AppLayout>
           </CredentialProvider>

@@ -12,12 +12,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@meshsdk/midnight-setup": "^1.9.0-beta.98",
+    "@midnight-ntwrk/compact-runtime": "^0.16.0",
+    "@midnight-ntwrk/midnight-js": "^4.1.1",
+    "@midnight-ntwrk/wallet-api": "^5.0.0",
     "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
     "lucide-react": "^0.475.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "tsx": "^4.23.12"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
